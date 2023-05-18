@@ -271,24 +271,24 @@ public class Main {
         return result;
     }
     
-	public static void main(String[] args) {
-		File input  = new File("rate.txt");
-        try{
-            Scanner file = new Scanner(input);              
-            double rate = Double.parseDouble(file.nextLine());
-            System.out.print("Enter expression: ");
-            Scanner in = new Scanner(System.in);
-            
-            String text = in.nextLine();
-            text = text.replaceAll("toDollars", "D");
-            text = text.replaceAll("toRubles", "R");
-            System.out.println(calculate(convert(text), rate));
-        }
-        catch (FileNotFoundException e){
-            System.out.println("ERROR: The file is missing.");
-        }
-        catch (NumberFormatException e){
-            System.out.println("ERROR: Invalid double format.");
-        }
+    public static void main(String[] args) {
+	File input  = new File("rate.txt");
+	try{
+	    Scanner file = new Scanner(input);              
+	    double rate = Double.parseDouble(file.nextLine());
+	    System.out.print("Enter expression: ");
+	    Scanner in = new Scanner(System.in);
+
+	    String text = in.nextLine();
+	    text = text.replaceAll("toDollars", "D");
+	    text = text.replaceAll("toRubles", "R");
+	    System.out.println(calculate(convert(text), rate));
 	}
+	catch (FileNotFoundException e){
+	    System.out.println("ERROR: The file is missing.");
+	}
+	catch (NumberFormatException e){
+	    System.out.println("ERROR: Invalid double format.");
+	}
+    }
 }
