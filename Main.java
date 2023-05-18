@@ -1,18 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-class IncorrectSyntaxException extends Exception{ }
-
-class IncorrectOperationException extends Exception{ }
-
-class EmptyBracketsException extends Exception{ }
-
-class UnclosedBracketsException extends Exception{ }
-
-class BinaryOperationException extends Exception{ }
-
-class DifferentCurrencyException extends Exception{ }
-
 public class Main {
     //checking symbols to separate currency from transactions
     static boolean isCurrency(char c) {
