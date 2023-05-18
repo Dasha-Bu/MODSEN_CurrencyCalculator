@@ -1,0 +1,1 @@
+public class IncorrectOperationException extends Exception{ }
