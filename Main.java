@@ -222,14 +222,14 @@ public class Main {
             if(currency1.charAt(0) == '$') { //if the currency is the dollar
                 currency1 = currency1.substring(1, currency1.length());
                 number1 = Double.parseDouble(currency1);
-                result = String.format("Result: $%.2f", number1); //formatting the result
+                result = String.format("RESULT: $%.2f\n", number1); //formatting the result
             }
             
             else if(currency1.charAt(currency1.length()-1) == 'p'
                  || currency1.charAt(currency1.length()-1) == 'р') { //if the currency is the ruble
                 currency1 = currency1.substring(0, currency1.length()-1);
                 number1 = Double.parseDouble(currency1);
-                result = String.format("Result: %.2fp", number1); //formatting the result
+                result = String.format("RESULT: %.2fp\n", number1); //formatting the result
             }
             
             if(!temp.empty()) throw new IncorrectSyntaxException();
@@ -259,24 +259,54 @@ public class Main {
         return result;
     }
     
-    public static void main(String[] args) {
-	File input  = new File("rate.txt");
-	try{
-	    Scanner file = new Scanner(input);              
-	    double rate = Double.parseDouble(file.nextLine());
-	    System.out.print("Enter expression: ");
-	    Scanner in = new Scanner(System.in);
-
-	    String text = in.nextLine();
-	    text = text.replaceAll("toDollars", "D");
-	    text = text.replaceAll("toRubles", "R");
-	    System.out.println(calculate(convert(text), rate));
+	public static void main(String[] args) {
+		File input  = new File("rate.txt");
+        try{
+            System.out.printf("%36s\n", "CURRENCY CALCULATOR");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%37s\n", "SUPPORTED CURRENCIES");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%3s %13s %26s\n", "#", "CURRENCY", "DESCRIPTION");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%3s %10s %40s\n", "1", "$1", "$ before the number");
+            System.out.printf("%3s %10s %40s\n", "2", "1p", "p  after the number");
+            System.out.println("-------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%38s\n", "SUPPORTED TRANSACTIONS");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%3s %14s %25s\n", "#", "TRANSACTION", "DESCRIPTION");
+            System.out.println("-------------------------------------------------------");
+            System.out.printf("%3s %9s %41s\n",  "1", "+",          "adding      values of one currency");
+            System.out.printf("%3s %9s %41s\n",  "2", "-",          "subtracting values of one currency");
+            System.out.printf("%3s %13s %37s\n", "3", "toDollars",  "converting    rubles  into dollars");
+            System.out.printf("%3s %12s %38s\n", "4", "toRubles",   "converting    dollars into  rubles");
+            System.out.println("-------------------------------------------------------");
+            System.out.println();
+            
+            Scanner file = new Scanner(input);              
+            double rate = Double.parseDouble(file.nextLine());
+            System.out.println("Exchange RATE obtained from the file: "+rate+"\n");
+            
+            boolean isEnd = false;
+            while(!isEnd) {
+                System.out.print("Enter EXPRESSION: ");
+                Scanner in = new Scanner(System.in);
+                
+                String text = in.nextLine();
+                text = text.replaceAll("toDollars", "D");
+                text = text.replaceAll("toRubles", "R");
+                System.out.println(calculate(convert(text), rate));
+                
+                System.out.print("Do you want to continue? (y/n) ");
+                String answer = in.nextLine().toLowerCase();
+                if(!answer.equals("y") && !answer.equals("yes")) isEnd = true;
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("ERROR: The file is missing.");
+        }
+        catch (NumberFormatException e){
+            System.out.println("ERROR: Invalid double format.");
+        }
 	}
-	catch (FileNotFoundException e){
-	    System.out.println("ERROR: The file is missing.");
-	}
-	catch (NumberFormatException e){
-	    System.out.println("ERROR: Invalid double format.");
-	}
-    }
 }
