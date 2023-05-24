@@ -1,6 +1,12 @@
 import java.util.Stack;
 
 public class CurrencyCalculator {
+    private static String text = "";
+    
+    public CurrencyCalculator(String text) {
+        this.text = text;
+    }
+    
     //checking symbols to separate currency from transactions
     static boolean isCurrency(char c) {
         return (c >= '0' && c <= '9'                //numbers
@@ -99,9 +105,10 @@ public class CurrencyCalculator {
     }
     
     //counting the result using reverse polish notation
-    static String calculate(String input, double rate) {
+    static String calculate(double rate) {
         double number1, number2;
         String currency1 = "", currency2 = "";
+        String input = convert(text);
         String number = "";
         String result = "";
         Stack<String> temp = new Stack<>();

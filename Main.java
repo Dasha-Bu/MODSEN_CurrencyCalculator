@@ -19,8 +19,8 @@ public class Main {
                 Scanner in = new Scanner(System.in);
                 String text = in.nextLine();
                 
-                CurrencyCalculator calculator = new CurrencyCalculator();
-                System.out.println(calculator.calculate(calculator.convert(text), rate));
+                CurrencyCalculator calculator = new CurrencyCalculator(text);
+                System.out.println(calculator.calculate(rate));
                 
                 System.out.print("Do you want to continue? (y/n) ");
                 String answer = in.nextLine().toLowerCase();
